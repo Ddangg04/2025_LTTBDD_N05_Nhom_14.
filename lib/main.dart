@@ -4,7 +4,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'firebase_options.dart';
 import 'screens/login_screen.dart';
 import 'screens/home_screen.dart';
-import 'services/auth_service.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -21,7 +20,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Football Field Management',
+      title: 'Quản Lý Sân Bóng',
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.green),
         useMaterial3: true,
@@ -44,7 +43,11 @@ class AuthGate extends StatelessWidget {
               body: Center(child: CircularProgressIndicator()));
         }
         if (snapshot.hasData) {
-          return const AdminHomeScreen();
+          return const HomeScreen(
+            number: null,
+            fieldName: null,
+            fieldId: '',
+          );
         }
         return const LoginScreen();
       },

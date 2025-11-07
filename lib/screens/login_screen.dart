@@ -24,7 +24,12 @@ class _LoginScreenState extends State<LoginScreen> {
       );
       Navigator.pushReplacement(
         context,
-        MaterialPageRoute(builder: (_) => const BookingScreen()),
+        MaterialPageRoute(
+            builder: (_) => const HomeScreen(
+                  fieldId: '',
+                  fieldName: null,
+                  number: null,
+                )),
       );
     } catch (e) {
       setState(() => error = "Sai tài khoản hoặc mật khẩu");

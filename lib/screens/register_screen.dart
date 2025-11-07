@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'home_screen.dart';
+import 'booking_screen.dart';
 
 class RegisterScreen extends StatefulWidget {
   const RegisterScreen({super.key});
@@ -26,7 +27,12 @@ class _RegisterScreenState extends State<RegisterScreen> {
       setState(() => message = "Tạo tài khoản thành công!");
       Navigator.pushReplacement(
         context,
-        MaterialPageRoute(builder: (_) => const AdminHomeScreen()),
+        MaterialPageRoute(
+            builder: (_) => const HomeScreen(
+                  fieldId: '',
+                  fieldName: null,
+                  number: null,
+                )),
       );
     } catch (e) {
       setState(() => message = "Lỗi: ${e.toString()}");

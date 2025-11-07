@@ -2,7 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class BookingScreen extends StatelessWidget {
-  const BookingScreen({super.key});
+  const BookingScreen(
+      {super.key,
+      required String fieldId,
+      required fieldName,
+      required number});
 
   @override
   Widget build(BuildContext context) {
