@@ -4,6 +4,5 @@ class FieldService {
   final DatabaseReference _fieldsRef =
       FirebaseDatabase.instance.ref('san_bong');
 
-  // Stream realtime
   Stream<DatabaseEvent> getFieldsStream() => _fieldsRef.onValue;
 }
