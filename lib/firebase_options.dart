@@ -36,10 +36,9 @@ class DefaultFirebaseOptions {
     messagingSenderId: '405011066245',
     projectId: 'btlck-63289',
     authDomain: 'btlck-63289.firebaseapp.com',
+    databaseURL: 'https://btlck-63289-default-rtdb.asia-southeast1.firebasedatabase.app',
     storageBucket: 'btlck-63289.firebasestorage.app',
     measurementId: 'G-SFLB6HWNGY',
-    databaseURL:
-        'https://btlck-63289-default-rtdb.asia-southeast1.firebasedatabase.app/',
   );
 
   static const FirebaseOptions android = FirebaseOptions(
@@ -47,9 +46,8 @@ class DefaultFirebaseOptions {
     appId: '1:405011066245:android:7a474777ff7cd328faa8ec',
     messagingSenderId: '405011066245',
     projectId: 'btlck-63289',
+    databaseURL: 'https://btlck-63289-default-rtdb.asia-southeast1.firebasedatabase.app',
     storageBucket: 'btlck-63289.firebasestorage.app',
-    databaseURL:
-        'https://btlck-63289-default-rtdb.asia-southeast1.firebasedatabase.app',
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
@@ -57,10 +55,9 @@ class DefaultFirebaseOptions {
     appId: '1:405011066245:ios:f62a39234b1e0118faa8ec',
     messagingSenderId: '405011066245',
     projectId: 'btlck-63289',
+    databaseURL: 'https://btlck-63289-default-rtdb.asia-southeast1.firebasedatabase.app',
     storageBucket: 'btlck-63289.firebasestorage.app',
     iosBundleId: 'com.example.btlCk',
-    databaseURL:
-        'https://btlck-63289-default-rtdb.asia-southeast1.firebasedatabase.app',
   );
 
   static const FirebaseOptions macos = FirebaseOptions(
@@ -68,10 +65,9 @@ class DefaultFirebaseOptions {
     appId: '1:405011066245:ios:f62a39234b1e0118faa8ec',
     messagingSenderId: '405011066245',
     projectId: 'btlck-63289',
+    databaseURL: 'https://btlck-63289-default-rtdb.asia-southeast1.firebasedatabase.app',
     storageBucket: 'btlck-63289.firebasestorage.app',
     iosBundleId: 'com.example.btlCk',
-    databaseURL:
-        'https://btlck-63289-default-rtdb.asia-southeast1.firebasedatabase.app',
   );
 
   static const FirebaseOptions windows = FirebaseOptions(
@@ -80,9 +76,9 @@ class DefaultFirebaseOptions {
     messagingSenderId: '405011066245',
     projectId: 'btlck-63289',
     authDomain: 'btlck-63289.firebaseapp.com',
+    databaseURL: 'https://btlck-63289-default-rtdb.asia-southeast1.firebasedatabase.app',
     storageBucket: 'btlck-63289.firebasestorage.app',
     measurementId: 'G-VYEWRBTM0H',
-    databaseURL:
-        'https://btlck-63289-default-rtdb.asia-southeast1.firebasedatabase.app',
   );
+
 }

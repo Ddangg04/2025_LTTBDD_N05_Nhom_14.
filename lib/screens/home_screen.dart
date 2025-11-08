@@ -17,6 +17,8 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   final FieldService _fieldService = FieldService();
 
+  int _currentIndex = 0;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -27,6 +29,53 @@ class _HomeScreenState extends State<HomeScreen> {
         title: const Text('Đặt sân bóng Phenikaa'),
         centerTitle: true,
       ),
+      drawer: Drawer(
+        child: ListView(
+          padding: EdgeInsets.zero,
+          children: [
+            const DrawerHeader(
+              decoration: BoxDecoration(
+                color: Colors.green,
+              ),
+              child: Text(
+                'Menu Điều Hướng',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 24,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ),
+            ListTile(
+              leading: const Icon(Icons.home_outlined),
+              title: const Text('Trang chủ'),
+              onTap: () => Navigator.pop(context),
+            ),
+            ListTile(
+              leading: const Icon(Icons.room_service_outlined),
+              title: const Text('Dịch vụ'),
+              onTap: () => Navigator.pop(context),
+            ),
+            ListTile(
+              leading: const Icon(Icons.calendar_today_outlined),
+              title: const Text('Lịch đặt của tôi'),
+              onTap: () => Navigator.pop(context),
+            ),
+            ListTile(
+              leading: const Icon(Icons.person_outline),
+              title: const Text('Tài khoản'),
+              onTap: () => Navigator.pop(context),
+            ),
+            const Divider(),
+            ListTile(
+              leading: const Icon(Icons.contact_support_outlined),
+              title: const Text('Liên hệ'),
+              onTap: () => Navigator.pop(context),
+            ),
+          ],
+        ),
+      ),
+
       body: StreamBuilder<DatabaseEvent>(
         stream: _fieldService.getFieldsStream(),
         builder: (context, snapshot) {
@@ -86,9 +135,10 @@ class _HomeScreenState extends State<HomeScreen> {
                     borderRadius: BorderRadius.circular(16),
                     boxShadow: [
                       BoxShadow(
-                          color: Colors.grey.shade300,
-                          blurRadius: 6,
-                          offset: const Offset(2, 3))
+                        color: Colors.grey.shade300,
+                        blurRadius: 6,
+                        offset: const Offset(2, 3),
+                      )
                     ],
                   ),
                   child: Column(
@@ -146,6 +196,64 @@ class _HomeScreenState extends State<HomeScreen> {
             },
           );
         },
+      ),
+      bottomNavigationBar: BottomNavigationBar(
+        type: BottomNavigationBarType.fixed,
+        selectedItemColor: Colors.green,
+        unselectedItemColor: Colors.grey,
+        currentIndex: _currentIndex,
+        onTap: (index) {
+          setState(() => _currentIndex = index);
+          switch (index) {
+            case 0:
+              break;
+            case 1:
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (_) => BookingScreen(
+                    fieldId: 'default_id',
+                    fieldName: 'Sân bóng',
+                    imageUrl: '',
+                    price: 0, 
+                    number: 0, 
+                  ),
+                ),
+              );
+
+              break;
+            case 2:
+              ScaffoldMessenger.of(context).showSnackBar(
+                const SnackBar(
+                    content: Text('Tính năng thông báo đang phát triển')),
+              );
+              break;
+            case 3:
+              ScaffoldMessenger.of(context).showSnackBar(
+                const SnackBar(
+                    content: Text('Trang tài khoản đang phát triển')),
+              );
+              break;
+          }
+        },
+        items: const [
+          BottomNavigationBarItem(
+            icon: Icon(Icons.home_outlined),
+            label: 'Trang chủ',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.calendar_today_outlined),
+            label: 'Đặt sân',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.notifications_outlined),
+            label: 'Thông báo',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.person_outline),
+            label: 'Tài khoản',
+          ),
+        ],
       ),
     );
   }
