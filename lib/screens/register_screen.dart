@@ -10,6 +10,7 @@ class RegisterScreen extends StatefulWidget {
 }
 
 class _RegisterScreenState extends State<RegisterScreen> {
+  final nameController = TextEditingController();
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
   final confirmController = TextEditingController();
@@ -17,14 +18,18 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
   Future<void> register() async {
     if (passwordController.text.trim() != confirmController.text.trim()) {
-      setState(() => error = "❌ Mật khẩu không khớp");
+      setState(() => error = "Mật khẩu không khớp");
       return;
     }
+
     try {
-      await FirebaseAuth.instance.createUserWithEmailAndPassword(
+      final userCredential =
+          await FirebaseAuth.instance.createUserWithEmailAndPassword(
         email: emailController.text.trim(),
         password: passwordController.text.trim(),
       );
+      await userCredential.user!.updateDisplayName(nameController.text.trim());
+
       if (mounted) {
         Navigator.pushReplacement(
           context,
@@ -32,7 +37,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
         );
       }
     } catch (e) {
-      setState(() => error = "❌ Đăng ký thất bại (Email có thể đã tồn tại)");
+      setState(() => error = "Đăng ký thất bại (Email có thể đã tồn tại)");
     }
   }
 
@@ -42,7 +47,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
       body: Container(
         decoration: const BoxDecoration(
           gradient: LinearGradient(
-            colors: [Colors.lightGreenAccent, Colors.green],
+            colors: [Color(0xFF8EC5FC), Color(0xFFE0C3FC)],
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
           ),
@@ -61,7 +66,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     const Icon(Icons.app_registration,
-                        color: Colors.green, size: 70),
+                        color: Colors.deepPurple, size: 70),
                     const SizedBox(height: 10),
                     const Text(
                       "Tạo tài khoản mới",
@@ -69,6 +74,16 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
                     ),
                     const SizedBox(height: 20),
+                    TextField(
+                      controller: nameController,
+                      decoration: InputDecoration(
+                        prefixIcon: const Icon(Icons.person_outline),
+                        labelText: "Họ và tên",
+                        border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(12)),
+                      ),
+                    ),
+                    const SizedBox(height: 15),
                     TextField(
                       controller: emailController,
                       decoration: InputDecoration(
@@ -104,8 +119,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     ElevatedButton(
                       onPressed: register,
                       style: ElevatedButton.styleFrom(
-                        backgroundColor:
-                            const Color.fromARGB(255, 158, 42, 168),
+                        backgroundColor: Colors.deepPurple,
                         minimumSize: const Size(double.infinity, 50),
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(12),
