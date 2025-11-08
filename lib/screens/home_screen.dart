@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:firebase_database/firebase_database.dart';
 import '../../services/field_service.dart';
 import 'booking_screen.dart';
+import 'contact_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen(
@@ -68,14 +69,21 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
             const Divider(),
             ListTile(
-              leading: const Icon(Icons.contact_support_outlined),
+              leading: const Icon(Icons.contact_mail),
               title: const Text('Liên hệ'),
-              onTap: () => Navigator.pop(context),
+              onTap: () {
+                Navigator.pop(context); 
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const ContactScreen(),
+                  ),
+                );
+              },
             ),
           ],
         ),
       ),
-
       body: StreamBuilder<DatabaseEvent>(
         stream: _fieldService.getFieldsStream(),
         builder: (context, snapshot) {
@@ -215,8 +223,8 @@ class _HomeScreenState extends State<HomeScreen> {
                     fieldId: 'default_id',
                     fieldName: 'Sân bóng',
                     imageUrl: '',
-                    price: 0, 
-                    number: 0, 
+                    price: 0,
+                    number: 0,
                   ),
                 ),
               );
