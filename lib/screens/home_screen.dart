@@ -100,7 +100,7 @@ class _HomeScreenState extends State<HomeScreen> {
             Stack(
               children: [
                 Image.network(
-                  'https://raw.githubusercontent.com/Ddangg04/2025_LTTBDD_N05_Nhom_14/main/assets/images/s1.jpg',
+                  'https://raw.githubusercontent.com/Ddangg04/2025_LTTBDD_N05_Nhom_14/main/assets/images/s9.jpg',
                   height: 180,
                   width: double.infinity,
                   fit: BoxFit.cover,
@@ -162,7 +162,6 @@ class _HomeScreenState extends State<HomeScreen> {
                   Text("• Chọn dịch vụ kèm theo như áo, nước, đồ uống..."),
                   Text(
                       "• Xem tình trạng sân trống / đã đặt theo từng khung giờ."),
-                  Text("• Hệ thống cập nhật tức thời trên Firebase Realtime."),
                 ],
               ),
             ),

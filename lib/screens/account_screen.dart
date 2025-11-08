@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'MyBookings_Screen.dart';
 
 class AccountScreen extends StatefulWidget {
   const AccountScreen({super.key});
@@ -88,7 +89,7 @@ class _AccountScreenState extends State<AccountScreen> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Tài khoản'),
-        backgroundColor: Colors.green,
+        backgroundColor: const Color.fromARGB(255, 208, 66, 244),
         foregroundColor: Colors.white,
       ),
       body: user == null
@@ -115,12 +116,15 @@ class _AccountScreenState extends State<AccountScreen> {
                   ),
                   const SizedBox(height: 30),
                   ListTile(
-                    leading: const Icon(Icons.history),
+                    leading: const Icon(Icons.calendar_today_outlined),
                     title: const Text('Lịch sử đặt sân'),
                     onTap: () {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(
-                            content: Text('Tính năng đang được phát triển')),
+                      Navigator.pop(context);
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const MyBookingsScreen(),
+                        ),
                       );
                     },
                   ),
