@@ -1,117 +1,146 @@
 import 'package:flutter/material.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_database/firebase_database.dart';
+import '../../services/field_service.dart';
 import 'booking_screen.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
   const HomeScreen(
       {super.key,
-      required number,
+      required String fieldId,
       required fieldName,
-      required String fieldId});
+      required number});
+
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  final FieldService _fieldService = FieldService();
 
   @override
   Widget build(BuildContext context) {
-    final fields = FirebaseFirestore.instance.collection('fields');
-
     return Scaffold(
+      backgroundColor: const Color(0xfff5f5f5),
       appBar: AppBar(
-        title: const Text('Danh sách sân bóng'),
         backgroundColor: Colors.green,
         foregroundColor: Colors.white,
+        title: const Text('Đặt sân bóng Phenikaa'),
+        centerTitle: true,
       ),
-      body: StreamBuilder<QuerySnapshot>(
-        stream: fields.snapshots(),
+      body: StreamBuilder<DatabaseEvent>(
+        stream: _fieldService.getFieldsStream(),
         builder: (context, snapshot) {
-          if (!snapshot.hasData) {
-            return const Center(child: CircularProgressIndicator());
+          if (!snapshot.hasData || snapshot.data!.snapshot.value == null) {
+            return const Center(child: Text("Đang tải danh sách sân..."));
           }
 
-          final docs = snapshot.data!.docs;
-          if (docs.isEmpty) {
-            return const Center(
-                child: Text("Chưa có sân bóng nào trong hệ thống."));
-          }
+          final data =
+              Map<String, dynamic>.from(snapshot.data!.snapshot.value as Map);
+          final fields = data.entries.map((e) {
+            final f = Map<String, dynamic>.from(e.value);
+            return {
+              'key': e.key,
+              'name': f['name'],
+              'number': f['number'],
+              'imageUrl': f['imageUrl'],
+              'status': f['status'],
+              'price': f['price'],
+              'description': f['description'],
+            };
+          }).toList();
 
-          return ListView.builder(
-            itemCount: docs.length,
+          return GridView.builder(
+            padding: const EdgeInsets.all(12),
+            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: 2,
+              childAspectRatio: 0.8,
+              crossAxisSpacing: 12,
+              mainAxisSpacing: 12,
+            ),
+            itemCount: fields.length,
             itemBuilder: (context, index) {
-              final field = docs[index];
+              final field = fields[index];
               final status = field['status'] ?? 'trong';
+              final isAvailable = status == 'trong';
 
-              return Card(
-                margin: const EdgeInsets.all(12),
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(15)),
-                elevation: 4,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    field['imageUrl'] != null
-                        ? ClipRRect(
-                            borderRadius: const BorderRadius.vertical(
-                                top: Radius.circular(15)),
-                            child: Image.network(
-                              field['imageUrl'],
-                              height: 180,
-                              width: double.infinity,
-                              fit: BoxFit.cover,
-                            ),
-                          )
-                        : Container(
-                            height: 180,
-                            color: Colors.grey[300],
-                            child: const Center(
-                                child: Icon(Icons.image_not_supported)),
-                          ),
-                    Padding(
-                      padding: const EdgeInsets.all(12),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            field['name'] ?? 'Sân không tên',
-                            style: const TextStyle(
-                                fontSize: 18, fontWeight: FontWeight.bold),
-                          ),
-                          const SizedBox(height: 4),
-                          Text('Số sân: ${field['number']}'),
-                          const SizedBox(height: 4),
-                          Text(
-                            'Trạng thái: ${status == 'trong' ? '🟢 Trống' : '🔴 Đã đặt'}',
-                            style: TextStyle(
-                                color: status == 'trong'
-                                    ? Colors.green
-                                    : Colors.red,
-                                fontWeight: FontWeight.w600),
-                          ),
-                          const SizedBox(height: 8),
-                          ElevatedButton.icon(
-                            onPressed: status == 'trong'
-                                ? () {
-                                    Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                        builder: (_) => BookingScreen(
-                                          fieldId: field.id,
-                                          fieldName: field['name'],
-                                          number: field['number'],
-                                        ),
-                                      ),
-                                    );
-                                  }
-                                : null,
-                            icon: const Icon(Icons.calendar_month),
-                            label: const Text('Đặt sân'),
-                            style: ElevatedButton.styleFrom(
-                              backgroundColor: Colors.green,
-                              foregroundColor: Colors.white,
-                              minimumSize: const Size(double.infinity, 45),
+              return GestureDetector(
+                onTap: isAvailable
+                    ? () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (_) => BookingScreen(
+                              fieldId: field['key'],
+                              fieldName: field['name'],
+                              imageUrl: field['imageUrl'],
+                              price: field['price'],
+                              number: null,
                             ),
                           ),
-                        ],
+                        );
+                      }
+                    : null,
+                child: Container(
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(16),
+                    boxShadow: [
+                      BoxShadow(
+                          color: Colors.grey.shade300,
+                          blurRadius: 6,
+                          offset: const Offset(2, 3))
+                    ],
+                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: [
+                      Expanded(
+                        child: ClipRRect(
+                          borderRadius: const BorderRadius.vertical(
+                              top: Radius.circular(16)),
+                          child: field['imageUrl'] != null
+                              ? Image.network(
+                                  field['imageUrl'],
+                                  fit: BoxFit.cover,
+                                )
+                              : Container(
+                                  color: Colors.grey[300],
+                                  child: const Icon(Icons.image_not_supported,
+                                      size: 50),
+                                ),
+                        ),
                       ),
-                    ),
-                  ],
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              field['name'] ?? 'Sân bóng',
+                              style: const TextStyle(
+                                  fontWeight: FontWeight.bold, fontSize: 16),
+                            ),
+                            Text('Giá: ${field['price'] ?? 0} VNĐ'),
+                            Text(
+                              status == 'trong'
+                                  ? '🟢 Trống'
+                                  : status == 'đang đặt'
+                                      ? '🟡 Đang đặt'
+                                      : '🔴 Bảo trì',
+                              style: TextStyle(
+                                color: isAvailable
+                                    ? Colors.green
+                                    : (status == 'đang đặt'
+                                        ? Colors.orange
+                                        : Colors.red),
+                                fontWeight: FontWeight.w600,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               );
             },

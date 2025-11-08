@@ -4,16 +4,6 @@ import 'package:firebase_core/firebase_core.dart' show FirebaseOptions;
 import 'package:flutter/foundation.dart'
     show defaultTargetPlatform, kIsWeb, TargetPlatform;
 
-/// Default [FirebaseOptions] for use with your Firebase apps.
-///
-/// Example:
-/// ```dart
-/// import 'firebase_options.dart';
-/// // ...
-/// await Firebase.initializeApp(
-///   options: DefaultFirebaseOptions.currentPlatform,
-/// );
-/// ```
 class DefaultFirebaseOptions {
   static FirebaseOptions get currentPlatform {
     if (kIsWeb) {
@@ -48,6 +38,8 @@ class DefaultFirebaseOptions {
     authDomain: 'btlck-63289.firebaseapp.com',
     storageBucket: 'btlck-63289.firebasestorage.app',
     measurementId: 'G-SFLB6HWNGY',
+    databaseURL:
+        'https://btlck-63289-default-rtdb.asia-southeast1.firebasedatabase.app/',
   );
 
   static const FirebaseOptions android = FirebaseOptions(
@@ -56,6 +48,8 @@ class DefaultFirebaseOptions {
     messagingSenderId: '405011066245',
     projectId: 'btlck-63289',
     storageBucket: 'btlck-63289.firebasestorage.app',
+    databaseURL:
+        'https://btlck-63289-default-rtdb.asia-southeast1.firebasedatabase.app',
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
@@ -65,6 +59,8 @@ class DefaultFirebaseOptions {
     projectId: 'btlck-63289',
     storageBucket: 'btlck-63289.firebasestorage.app',
     iosBundleId: 'com.example.btlCk',
+    databaseURL:
+        'https://btlck-63289-default-rtdb.asia-southeast1.firebasedatabase.app',
   );
 
   static const FirebaseOptions macos = FirebaseOptions(
@@ -74,6 +70,8 @@ class DefaultFirebaseOptions {
     projectId: 'btlck-63289',
     storageBucket: 'btlck-63289.firebasestorage.app',
     iosBundleId: 'com.example.btlCk',
+    databaseURL:
+        'https://btlck-63289-default-rtdb.asia-southeast1.firebasedatabase.app',
   );
 
   static const FirebaseOptions windows = FirebaseOptions(
@@ -84,5 +82,7 @@ class DefaultFirebaseOptions {
     authDomain: 'btlck-63289.firebaseapp.com',
     storageBucket: 'btlck-63289.firebasestorage.app',
     measurementId: 'G-VYEWRBTM0H',
+    databaseURL:
+        'https://btlck-63289-default-rtdb.asia-southeast1.firebasedatabase.app',
   );
 }
