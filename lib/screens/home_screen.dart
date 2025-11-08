@@ -5,6 +5,7 @@ import 'booking_screen.dart';
 import 'contact_screen.dart';
 import 'account_screen.dart';
 import 'MyBookings_Screen.dart';
+
 class HomeScreen extends StatefulWidget {
   const HomeScreen(
       {super.key,
@@ -25,7 +26,7 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       backgroundColor: const Color(0xfff5f5f5),
       appBar: AppBar(
-        backgroundColor: Colors.green,
+        backgroundColor: const Color.fromARGB(255, 27, 87, 148),
         foregroundColor: Colors.white,
         title: const Text('Đặt sân bóng Phenikaa'),
         centerTitle: true,
@@ -59,7 +60,7 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
             ListTile(
               leading: const Icon(Icons.calendar_today_outlined),
-               title: const Text('Lịch sử đặt sân'),
+              title: const Text('Lịch sử đặt sân'),
               onTap: () {
                 Navigator.pop(context);
                 Navigator.push(
