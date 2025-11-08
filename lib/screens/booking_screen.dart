@@ -149,7 +149,7 @@ class _BookingScreenState extends State<BookingScreen> {
             }).toList(),
           ),
           const SizedBox(height: 10),
-          Text(slotAvailable ? '🟢 Sân trống' : '🔴 Đã đặt',
+          Text(slotAvailable ? 'Sân trống' : 'Đã đặt',
               style: TextStyle(
                   fontWeight: FontWeight.bold,
                   color: slotAvailable ? Colors.green : Colors.red)),

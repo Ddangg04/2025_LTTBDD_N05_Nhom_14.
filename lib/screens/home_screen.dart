@@ -123,10 +123,10 @@ class _HomeScreenState extends State<HomeScreen> {
                             Text('Giá: ${field['price'] ?? 0} VNĐ'),
                             Text(
                               status == 'trong'
-                                  ? '🟢 Trống'
+                                  ? 'Trống'
                                   : status == 'đang đặt'
-                                      ? '🟡 Đang đặt'
-                                      : '🔴 Bảo trì',
+                                      ? 'Đang đặt'
+                                      : 'Bảo trì',
                               style: TextStyle(
                                 color: isAvailable
                                     ? Colors.green
