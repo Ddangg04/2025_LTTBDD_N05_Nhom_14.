@@ -4,7 +4,7 @@ import '../../services/field_service.dart';
 import 'booking_screen.dart';
 import 'contact_screen.dart';
 import 'account_screen.dart';
-
+import 'MyBookings_Screen.dart';
 class HomeScreen extends StatefulWidget {
   const HomeScreen(
       {super.key,
@@ -59,8 +59,16 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
             ListTile(
               leading: const Icon(Icons.calendar_today_outlined),
-              title: const Text('Lịch đặt của tôi'),
-              onTap: () => Navigator.pop(context),
+               title: const Text('Lịch sử đặt sân'),
+              onTap: () {
+                Navigator.pop(context);
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const MyBookingsScreen(),
+                  ),
+                );
+              },
             ),
             ListTile(
               leading: const Icon(Icons.person_outline),
