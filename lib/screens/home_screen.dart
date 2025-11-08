@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:firebase_database/firebase_database.dart';
 import '../../services/field_service.dart';
 import 'booking_screen.dart';
-import 'contact_screen.dart'
+import 'contact_screen.dart';
+import 'account_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen(
@@ -67,11 +68,11 @@ class _HomeScreenState extends State<HomeScreen> {
               onTap: () => Navigator.pop(context),
             ),
             const Divider(),
-           ListTile(
+            ListTile(
               leading: const Icon(Icons.contact_mail),
               title: const Text('Liên hệ'),
               onTap: () {
-                Navigator.pop(context); 
+                Navigator.pop(context);
                 Navigator.push(
                   context,
                   MaterialPageRoute(
@@ -83,13 +84,10 @@ class _HomeScreenState extends State<HomeScreen> {
           ],
         ),
       ),
-
-      // ------------------------ BODY CHÍNH ------------------------
       body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // ---------- Banner ----------
             Stack(
               children: [
                 Image.network(
@@ -116,9 +114,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
               ],
             ),
-
             const SizedBox(height: 12),
-
             const Padding(
               padding: EdgeInsets.symmetric(horizontal: 16),
               child: Text(
@@ -161,9 +157,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 ],
               ),
             ),
-
             const SizedBox(height: 12),
-
             const Padding(
               padding: EdgeInsets.symmetric(horizontal: 16),
               child: Text(
@@ -175,7 +169,6 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
               ),
             ),
-
             StreamBuilder<DatabaseEvent>(
               stream: _fieldService.getFieldsStream(),
               builder: (context, snapshot) {
@@ -198,10 +191,9 @@ class _HomeScreenState extends State<HomeScreen> {
                     'description': f['description'],
                   };
                 }).toList();
-
                 return GridView.builder(
-                  physics: const NeverScrollableScrollPhysics(),
-                  shrinkWrap: true,
+                  physics: const NeverScrollableScrollPhysics(), //
+                  shrinkWrap: true, //
                   padding: const EdgeInsets.all(12),
                   gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: 2,
@@ -302,9 +294,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 );
               },
             ),
-
             const SizedBox(height: 12),
-
             Container(
               width: double.infinity,
               color: const Color(0xFFE8F5E9),
@@ -331,7 +321,6 @@ class _HomeScreenState extends State<HomeScreen> {
           ],
         ),
       ),
-
       bottomNavigationBar: BottomNavigationBar(
         type: BottomNavigationBarType.fixed,
         selectedItemColor: Colors.green,
