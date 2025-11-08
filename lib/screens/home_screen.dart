@@ -37,7 +37,7 @@ class _HomeScreenState extends State<HomeScreen> {
           children: [
             const DrawerHeader(
               decoration: BoxDecoration(
-                color: Colors.green,
+                color: Color.fromARGB(255, 27, 87, 148),
               ),
               child: Text(
                 'Menu Điều Hướng',
@@ -131,7 +131,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 style: TextStyle(
                   fontSize: 18,
                   fontWeight: FontWeight.bold,
-                  color: Colors.green,
+                  color: Color.fromARGB(255, 27, 87, 148),
                 ),
               ),
             ),
@@ -149,7 +149,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 style: TextStyle(
                   fontSize: 18,
                   fontWeight: FontWeight.bold,
-                  color: Colors.green,
+                  color: Color.fromARGB(255, 27, 87, 148),
                 ),
               ),
             ),
@@ -174,7 +174,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 style: TextStyle(
                   fontSize: 18,
                   fontWeight: FontWeight.bold,
-                  color: Colors.green,
+                  color: Color.fromARGB(255, 27, 87, 148),
                 ),
               ),
             ),
@@ -285,7 +285,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                             : 'Bảo trì',
                                     style: TextStyle(
                                       color: isAvailable
-                                          ? Colors.green
+                                          ? Color.fromARGB(255, 27, 87, 148)
                                           : (status == 'đang đặt'
                                               ? Colors.orange
                                               : Colors.red),
@@ -332,7 +332,7 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
       bottomNavigationBar: BottomNavigationBar(
         type: BottomNavigationBarType.fixed,
-        selectedItemColor: Colors.green,
+        selectedItemColor: Color.fromARGB(255, 27, 87, 148),
         unselectedItemColor: Colors.grey,
         currentIndex: _currentIndex,
         onTap: (index) {
